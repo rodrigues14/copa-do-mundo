@@ -1,23 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import Banner from './componentes/Banner';
+import Formulario from './componentes/Formulario';
+import Rodape from './componentes/Rodape';
+import Time from './componentes/Time';
 
 function App() {
+
+  const selecoes = [
+    {
+      nome: 'Brasil',
+      corPrimaria: '#ffdf00',
+      corSecundaria: '#d8ffd4',
+    },
+    {
+      nome: 'Argentina',
+      corPrimaria: '#75AADB',
+      corSecundaria: '#ffffcc',
+    },
+    {
+      nome: 'Inglaterra',
+      corPrimaria: '#c8102e',
+      corSecundaria: '#FDE7E8',
+    },
+    {
+      nome: 'Portugal',
+      corPrimaria: '#ff0000',
+      corSecundaria: '#cdffc8',
+    },
+    {
+      nome: 'Espanha',
+      corPrimaria: '#F1BF00',
+      corSecundaria: '#FAE9F5',
+    },
+    {
+      nome: 'Uruguai',
+      corPrimaria: '#0038a8ff',
+      corSecundaria: '#FFF5D9',
+    },
+    {
+      nome: 'França',
+      corPrimaria: '#005c8a',
+      corSecundaria: '#e2e5ff',
+    },
+  ]
+
+  const [jogadores, setJogadores] = useState([])
+
+  const aoNovoJogadorAdicionado = (jogador) => {
+    setJogadores([...jogadores, jogador])
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Banner />
+      <Formulario times={selecoes.map(selecao => selecao.nome)} aoJogadorCadastrado={jogador => aoNovoJogadorAdicionado(jogador)}/>
+
+      {selecoes.map(selecao => <Time 
+        key={selecao.nome} 
+        nome={selecao.nome} 
+        corPrimaria={selecao.corPrimaria} 
+        corSecundaria={selecao.corSecundaria} 
+        jogadores={jogadores.filter(jogador => jogador.selecao === selecao.nome)}
+      />)}
+      <Rodape />
+      
+
     </div>
   );
 }
