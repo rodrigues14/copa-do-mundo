@@ -1,6 +1,13 @@
 import './Jogador.css'
 
-const Jogador = ({ nome, imagem, posicao, corDeFundo }) => {
+interface JogadorProps {
+    nome: string
+    imagem: string
+    posicao: string
+    corDeFundo: string
+}
+
+const Jogador = ({ nome, imagem, posicao, corDeFundo }: JogadorProps) => {
     return (
         <div className='jogador'>
             <div className='cabecalho' style={{ backgroundColor: corDeFundo }}>

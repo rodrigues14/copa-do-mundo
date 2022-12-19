@@ -1,17 +1,23 @@
 import { useState } from 'react'
+import { IJogador } from '../../compartilhado/interfaces/IJogador'
 import Botao from '../Botao'
 import CampoTexto from '../CampoTexto'
 import ListaSuspensa from '../ListaSuspensa'
 import './Formulario.css'
 
-const Formulario = (props) => {
+interface FormularioProps {
+    aoJogadorCadastrado: (jogador: IJogador) => void
+    times: string[]
+}
+
+const Formulario = (props: FormularioProps) => {
 
     const [nome, setNome] = useState('')
     const [posicao, setPosicao] = useState('')
     const [imagem, setImagem] = useState('')
     const [selecao, setSelecao] = useState('')
 
-    const aoSalvar = (evento) => {
+    const aoSalvar = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
         props.aoJogadorCadastrado({
             nome,
