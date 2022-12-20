@@ -3,6 +3,7 @@ import Formulario from './componentes/Formulario';
 import Rodape from './componentes/Rodape';
 import Time from './componentes/Time';
 import Banner from './componentes/Banner'
+import { IJogador } from './compartilhado/interfaces/IJogador';
 
 function App() {
 
@@ -44,9 +45,9 @@ function App() {
     },
   ]
 
-  const [jogadores, setJogadores] = useState([])
+  const [jogadores, setJogadores] = useState<IJogador[]>([])
 
-  const aoNovoJogadorAdicionado = (jogador) => {
+  const aoNovoJogadorAdicionado = (jogador: IJogador) => {
     setJogadores([...jogadores, jogador])
   }
 
