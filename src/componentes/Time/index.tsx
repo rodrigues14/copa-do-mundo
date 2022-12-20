@@ -23,6 +23,7 @@ const Time = (props: TimeProps) => {
                         nome={jogador.nome} 
                         posicao={jogador.posicao} 
                         imagem={jogador.imagem}
+                        data={jogador.data}
                     />
                 )}
             </div>

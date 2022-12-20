@@ -3,4 +3,5 @@ export interface IJogador {
   posicao: string
   imagem: string
   selecao?: string
+  data: string
 }
