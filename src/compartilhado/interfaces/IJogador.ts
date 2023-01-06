@@ -4,4 +4,5 @@ export interface IJogador {
   imagem: string
   selecao?: string
   data: string
+  favorito: boolean
 }

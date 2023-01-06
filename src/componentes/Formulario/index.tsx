@@ -25,7 +25,8 @@ const Formulario = (props: FormularioProps) => {
             posicao,
             imagem,
             selecao,
-            data
+            data,
+            favorito: false
         })
         setNome('')
         setPosicao('')

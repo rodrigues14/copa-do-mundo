@@ -7,48 +7,61 @@ import { IJogador } from './compartilhado/interfaces/IJogador';
 
 function App() {
 
-  const selecoes = [
+  const [selecoes, setSelecoes] = useState([
     {
       nome: 'Brasil',
-      corPrimaria: '#ffdf00',
-      corSecundaria: '#d8ffd4',
+      cor: '#ffdf00',
     },
     {
       nome: 'Argentina',
-      corPrimaria: '#75AADB',
-      corSecundaria: '#ffffcc',
+      cor: '#75AADB',
     },
     {
       nome: 'Inglaterra',
-      corPrimaria: '#c8102e',
-      corSecundaria: '#FDE7E8',
+      cor: '#c8102e',
     },
     {
       nome: 'Portugal',
-      corPrimaria: '#ff0000',
-      corSecundaria: '#cdffc8',
+      cor: '#ff0000',
     },
     {
       nome: 'Espanha',
-      corPrimaria: '#F1BF00',
-      corSecundaria: '#FAE9F5',
+      cor: '#F1BF00',
     },
     {
       nome: 'Uruguai',
-      corPrimaria: '#0038a8ff',
-      corSecundaria: '#FFF5D9',
+      cor: '#0038a8',
     },
     {
       nome: 'França',
-      corPrimaria: '#005c8a',
-      corSecundaria: '#e2e5ff',
+      cor: '#005c8a',
     },
-  ]
+  ])
 
   const [jogadores, setJogadores] = useState<IJogador[]>([])
 
   const aoNovoJogadorAdicionado = (jogador: IJogador) => {
     setJogadores([...jogadores, jogador])
+  }
+
+  function deletarJogador(nome: string) {
+    setJogadores(jogadores.filter(jogador => jogador.nome !== nome))
+  }
+
+  function mudarCorDoTime(cor: string, nome: string) {
+    setSelecoes(selecoes.map(selecao => {
+      if (selecao.nome === nome) {
+        selecao.cor = cor
+      }
+      return selecao
+    }))
+  }
+
+  function resolverFavorito(nome: string) {
+    setJogadores(jogadores.map(jogador => {
+      if (jogador.nome === nome) jogador.favorito = !jogador.favorito
+      return jogador
+    }))
   }
 
   return (
@@ -57,15 +70,22 @@ function App() {
         enderecoImagem='/imagens/banner-copa.webp'
         textoAlternativo='Banner da Copa do Mundo 2022'
       />
-      <Formulario times={selecoes.map(selecao => selecao.nome)} aoJogadorCadastrado={jogador => aoNovoJogadorAdicionado(jogador)}/>
+      <Formulario 
+        times={selecoes.map(selecao => selecao.nome)} 
+        aoJogadorCadastrado={jogador => aoNovoJogadorAdicionado(jogador)}
+      />
 
-      {selecoes.map(selecao => <Time 
-        key={selecao.nome} 
-        nome={selecao.nome} 
-        corPrimaria={selecao.corPrimaria} 
-        corSecundaria={selecao.corSecundaria} 
-        jogadores={jogadores.filter(jogador => jogador.selecao === selecao.nome)}
-      />)}
+      {selecoes.map(selecao => 
+        <Time 
+          mudarCor={mudarCorDoTime}
+          key={selecao.nome} 
+          nome={selecao.nome} 
+          cor={selecao.cor} 
+          corSecundaria={selecao.cor} 
+          jogadores={jogadores.filter(jogador => jogador.selecao === selecao.nome)}
+          aoDeletar={deletarJogador}
+          aoFavoritar={resolverFavorito}
+        />)}
       <Rodape />
       
 
